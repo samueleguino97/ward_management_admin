@@ -1,12 +1,17 @@
+import Inventory from "../Inventory/Inventory";
+import InventoryPage from "../../pages/InventoryPage/InventoryPage";
+
 export default [
-  {
-    path: "/",
-    component: null,
-  },
   {
     path: "/inventory",
     exact: true,
-    component: null,
+    component: InventoryPage,
     label: "Almacenamiento",
+  },
+  {
+    path: "/users",
+    exact: true,
+    component: null,
+    label: "Usuarios",
   },
 ];

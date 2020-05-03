@@ -1,0 +1,12 @@
+.card {
+  transition: all 0.3s;
+  background-color: #fafafa !important;
+  cursor: pointer;
+  transition: all 0.3s;
+  margin-bottom: 10px;
+  &:hover {
+    transition: all 0.3s;
+    background-color: rgba(65, 163, 255, 0.8) !important;
+    color: white;
+  }
+}

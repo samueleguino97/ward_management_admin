@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Card, Link } from "@material-ui/core";
+import { Card, Link, Box } from "@material-ui/core";
 
 import classes from "./NavBar.module.scss";
 import routes from "../routes";
@@ -10,9 +10,17 @@ function NavBar() {
   return (
     <Card className={classes.container}>
       {routes.map((link) => (
-        <Link to={link.path} component={NavLink}>
-          {link.label}
-        </Link>
+        <Box
+          width="100%"
+          height={50}
+          display="flex"
+          justifyContent="center"
+          alignItems="center"
+        >
+          <Link to={link.path} exact={link.exact} component={NavLink}>
+            {link.label}
+          </Link>
+        </Box>
       ))}
     </Card>
   );
