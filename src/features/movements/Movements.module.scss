@@ -10,3 +10,15 @@
     color: white;
   }
 }
+.item {
+  display: grid !important;
+  grid-template-columns: repeat(3, 30%) 1fr;
+}
+.actions {
+  display: flex;
+  justify-content: center;
+}
+.container {
+  overflow-y: auto !important;
+  max-height: 100%;
+}

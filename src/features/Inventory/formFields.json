@@ -1,0 +1,10 @@
+[
+  {
+    "label": "Nombre del Producto",
+    "name": "name"
+  },
+  {
+    "name": "unit",
+    "label": "Unidad"
+  }
+]

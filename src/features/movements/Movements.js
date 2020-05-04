@@ -9,13 +9,23 @@ import {
   List,
   IconButton,
 } from "@material-ui/core";
-import { Add } from "@material-ui/icons";
+import {
+  Add,
+  Delete,
+  ArrowForward,
+  ArrowRight,
+  ArrowRightAlt,
+  ArrowLeft,
+} from "@material-ui/icons";
 
 import classes from "./Movements.module.scss";
+import { useMovements } from "../../hooks/db";
 
 function Movements() {
+  const [movements, { deleteMovement }] = useMovements();
+
   return (
-    <Card>
+    <Card className={classes.container}>
       <CardHeader
         title="Movimientos"
         action={
@@ -26,15 +36,35 @@ function Movements() {
       />
       <CardContent>
         <List>
-          <Card className={classes.card}>
-            <ListItem>
-              <ListItemText>Item</ListItemText>
-              <ListItemText>Item</ListItemText>
-              <ListItemText>Item</ListItemText>
-              <ListItemText>Item</ListItemText>
-              <ListItemSecondaryAction>Sa</ListItemSecondaryAction>
-            </ListItem>
-          </Card>
+          {movements?.map((movement) => (
+            <Card className={classes.card}>
+              <ListItem className={classes.item}>
+                <ListItemText>
+                  {movement.take_name || (
+                    <span style={{ fontWeight: "bold" }}>Almacen</span>
+                  )}
+                </ListItemText>
+                <div style={{ display: "flex", alignItems: "center" }}>
+                  {movement.type === "in" ? (
+                    <ArrowRightAlt
+                      style={{
+                        transform: "rotate(180deg)",
+                        color: "green",
+                      }}
+                    />
+                  ) : (
+                    <ArrowRightAlt style={{ color: "red" }} />
+                  )}
+                </div>
+                <ListItemText>{movement.give_name || "Anonimo"}</ListItemText>
+                <ListItemText className={classes.actions}>
+                  <IconButton onClick={() => deleteMovement(movement._id)}>
+                    <Delete />
+                  </IconButton>
+                </ListItemText>
+              </ListItem>
+            </Card>
+          ))}
         </List>
       </CardContent>
     </Card>

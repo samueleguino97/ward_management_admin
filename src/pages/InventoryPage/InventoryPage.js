@@ -6,13 +6,13 @@ import { Box, Container } from "@material-ui/core";
 function InventoryPage() {
   return (
     <Container
-      maxWidth={false}
+      maxWidth="md"
       style={{ padding: 12, display: "flex", height: "100%" }}
     >
-      <Box flex={1}>
+      <Box width={300} marginRight={2}>
         <Inventory />
       </Box>
-      <Box width={400} marginLeft={2}>
+      <Box flex={1}>
         <Movements />
       </Box>
     </Container>

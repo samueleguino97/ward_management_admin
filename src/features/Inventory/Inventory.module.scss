@@ -9,4 +9,17 @@
     background-color: rgba(65, 163, 255, 0.8) !important;
     color: white;
   }
+  height: 100%;
+}
+.item {
+  display: grid !important;
+  grid-template-columns: repeat(2, 35%) 1fr;
+}
+.actions {
+  display: flex;
+  justify-content: center;
+}
+.container {
+  overflow: auto !important;
+  max-height: 100%;
 }
