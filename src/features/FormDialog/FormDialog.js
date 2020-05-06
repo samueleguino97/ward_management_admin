@@ -14,6 +14,7 @@ function FormDialog({
   fields = [],
   onSubmit,
   initialState = {},
+  options = {},
   ...dialogProps
 }) {
   return (
@@ -33,7 +34,10 @@ function FormDialog({
             <DialogContent style={{ display: "flex", flexDirection: "column" }}>
               <FormLabel>Crear Producto</FormLabel>
               {fields?.map((field) => (
-                <FormField {...field} />
+                <FormField
+                  {...field}
+                  options={options[field.name] ? options[field.name] : []}
+                />
               ))}
             </DialogContent>
 

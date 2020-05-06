@@ -1,0 +1,15 @@
+[
+  {
+    "label": "Beneficiario",
+    "name": "take_name"
+  },
+  {
+    "name": "item",
+    "type": "select",
+    "label": "Item"
+  },
+  {
+    "name": "quantity",
+    "label": "Cantidad"
+  }
+]

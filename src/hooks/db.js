@@ -98,7 +98,9 @@ export function useDbCollection(collection = "") {
           "?_id=" +
           item._id,
         {
-          method: "UPDATE",
+          method: "PUT",
+          body: JSON.stringify({ ...item }),
+          headers: { "Content-Type": "application/json" },
         }
       );
     },
