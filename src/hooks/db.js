@@ -1,5 +1,12 @@
 import { useEffect, useState } from "react";
 import { produce } from "immer";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  createItem,
+  updateItem,
+  deleteItem,
+  setCollection,
+} from "../redux/reducers";
 export function useItems() {
   const [items, setItems] = useState([]);
   useEffect(() => {
@@ -65,12 +72,13 @@ export function useMovements() {
 }
 
 export function useDbCollection(collection = "") {
-  const [data, setData] = useState([]);
+  const data = useSelector((state) => state[collection]);
+  const dispatch = useDispatch();
   useEffect(() => {
     fetch(`http://127.0.0.1:8085/api/${collection}`)
       .then((res) => res.json())
       .then((json) => {
-        setData(json || []);
+        dispatch(setCollection({ collection, data: json }));
       });
   }, []);
 
@@ -83,15 +91,13 @@ export function useDbCollection(collection = "") {
           "Content-Type": "application/json",
         },
       }).then((res) => res.json());
-      setData([...data, { ...item, _id: result.insertedId }]);
+      dispatch(
+        createItem({ collection, data: { ...item, _id: result.insertedId } })
+      );
     },
     updateitem: async (item) => {
-      setData(
-        produce(data, (draft) => {
-          const index = draft.findIndex((item2) => item2._id === item._id);
-          draft[index] = item;
-        })
-      );
+      dispatch(updateItem({ collection, data: item, id: item._id }));
+
       await fetch(
         `http://127.0.0.1:8085/api/${collection}/` +
           item._id +
@@ -105,12 +111,8 @@ export function useDbCollection(collection = "") {
       );
     },
     deleteItem: async (id) => {
-      setData(
-        produce(data, (draft) => {
-          const index = draft.findIndex((item) => item._id === id);
-          draft.splice(index, 1);
-        })
-      );
+      dispatch(deleteItem({ collection, id }));
+
       await fetch(
         `http://127.0.0.1:8085/api/${collection}/` + id + "?_id=" + id,
         {

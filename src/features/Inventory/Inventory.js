@@ -13,11 +13,11 @@ import {
 import { Add, EditRounded, Delete } from "@material-ui/icons";
 
 import classes from "./Inventory.module.scss";
-import { useItems } from "../../hooks/db";
+import { useItems, useDbCollection } from "../../hooks/db";
 import FormDialog from "../FormDialog/FormDialog";
 
 function Inventory() {
-  const [items, { createItem, deleteItem }] = useItems();
+  const [items, { createItem, deleteItem }] = useDbCollection("items");
   const [open, setOpen] = useState(false);
   return (
     <Card className={classes.container}>
