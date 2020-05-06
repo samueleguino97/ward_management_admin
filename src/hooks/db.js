@@ -10,7 +10,7 @@ import {
 export function useItems() {
   const [items, setItems] = useState([]);
   useEffect(() => {
-    fetch("http://127.0.0.1:8085/api/items")
+    fetch("http://167.172.129.113:8085/api/items")
       .then((res) => res.json())
       .then((json) => {
         setItems(json);
@@ -19,7 +19,7 @@ export function useItems() {
 
   const actions = {
     createItem: async (item) => {
-      const result = await fetch("http://127.0.0.1:8085/api/items", {
+      const result = await fetch("http://167.172.129.113:8085/api/items", {
         method: "POST",
         body: JSON.stringify({ ...item }),
         headers: {
@@ -35,9 +35,12 @@ export function useItems() {
           draft.splice(index, 1);
         })
       );
-      await fetch("http://127.0.0.1:8085/api/items/" + id + "?_id=" + id, {
-        method: "DELETE",
-      });
+      await fetch(
+        "http://167.172.129.113:8085/api/items/" + id + "?_id=" + id,
+        {
+          method: "DELETE",
+        }
+      );
     },
   };
 
@@ -47,7 +50,7 @@ export function useItems() {
 export function useMovements() {
   const [movements, setMovements] = useState([]);
   useEffect(() => {
-    fetch("http://127.0.0.1:8085/api/movements")
+    fetch("http://167.172.129.113:8085/api/movements")
       .then((res) => res.json())
       .then((json) => {
         setMovements(json);
@@ -62,9 +65,12 @@ export function useMovements() {
           draft.splice(index, 1);
         })
       );
-      await fetch("http://127.0.0.1:8085/api/movements/" + id + "?_id=" + id, {
-        method: "DELETE",
-      });
+      await fetch(
+        "http://167.172.129.113:8085/api/movements/" + id + "?_id=" + id,
+        {
+          method: "DELETE",
+        }
+      );
     },
   };
 
@@ -75,7 +81,7 @@ export function useDbCollection(collection = "") {
   const data = useSelector((state) => state[collection]);
   const dispatch = useDispatch();
   useEffect(() => {
-    fetch(`http://127.0.0.1:8085/api/${collection}`)
+    fetch(`http://167.172.129.113:8085/api/${collection}`)
       .then((res) => res.json())
       .then((json) => {
         dispatch(setCollection({ collection, data: json }));
@@ -84,13 +90,16 @@ export function useDbCollection(collection = "") {
 
   const actions = {
     createItem: async (item) => {
-      const result = await fetch(`http://127.0.0.1:8085/api/${collection}`, {
-        method: "POST",
-        body: JSON.stringify({ ...item }),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }).then((res) => res.json());
+      const result = await fetch(
+        `http://167.172.129.113:8085/api/${collection}`,
+        {
+          method: "POST",
+          body: JSON.stringify({ ...item }),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      ).then((res) => res.json());
       dispatch(
         createItem({ collection, data: { ...item, _id: result.insertedId } })
       );
@@ -99,7 +108,7 @@ export function useDbCollection(collection = "") {
       dispatch(updateItem({ collection, data: item, id: item._id }));
 
       await fetch(
-        `http://127.0.0.1:8085/api/${collection}/` +
+        `http://167.172.129.113:8085/api/${collection}/` +
           item._id +
           "?_id=" +
           item._id,
@@ -114,7 +123,7 @@ export function useDbCollection(collection = "") {
       dispatch(deleteItem({ collection, id }));
 
       await fetch(
-        `http://127.0.0.1:8085/api/${collection}/` + id + "?_id=" + id,
+        `http://167.172.129.113:8085/api/${collection}/` + id + "?_id=" + id,
         {
           method: "DELETE",
         }
