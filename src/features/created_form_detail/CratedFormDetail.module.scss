@@ -1,0 +1,23 @@
+.tab {
+  height: 40px;
+  width: 150px;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid gray;
+  transition: all 0.2s;
+  &.active {
+    background-color: #0096fa;
+    color: white;
+    border: 1px solid #0096fa;
+  }
+  &:hover {
+    cursor: pointer;
+    opacity: 0.6;
+    background-color: #ddd;
+    &.active {
+      background-color: #0096fa;
+    }
+  }
+}

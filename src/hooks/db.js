@@ -63,3 +63,60 @@ export function useMovements() {
 
   return [movements, actions];
 }
+
+export function useDbCollection(collection = "") {
+  const [data, setData] = useState([]);
+  useEffect(() => {
+    fetch(`http://127.0.0.1:8085/api/${collection}`)
+      .then((res) => res.json())
+      .then((json) => {
+        setData(json || []);
+      });
+  }, []);
+
+  const actions = {
+    createItem: async (item) => {
+      const result = await fetch(`http://127.0.0.1:8085/api/${collection}`, {
+        method: "POST",
+        body: JSON.stringify({ ...item }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }).then((res) => res.json());
+      setData([...data, { ...item, _id: result.insertedId }]);
+    },
+    updateitem: async (item) => {
+      setData(
+        produce(data, (draft) => {
+          const index = draft.findIndex((item2) => item2._id === item._id);
+          draft[index] = item;
+        })
+      );
+      await fetch(
+        `http://127.0.0.1:8085/api/${collection}/` +
+          item._id +
+          "?_id=" +
+          item._id,
+        {
+          method: "UPDATE",
+        }
+      );
+    },
+    deleteItem: async (id) => {
+      setData(
+        produce(data, (draft) => {
+          const index = draft.findIndex((item) => item._id === id);
+          draft.splice(index, 1);
+        })
+      );
+      await fetch(
+        `http://127.0.0.1:8085/api/${collection}/` + id + "?_id=" + id,
+        {
+          method: "DELETE",
+        }
+      );
+    },
+  };
+
+  return [data, actions];
+}

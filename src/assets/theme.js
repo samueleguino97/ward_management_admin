@@ -15,6 +15,14 @@ export default createMuiTheme({
         },
       },
     },
+    MuiFormLabel: { root: { marginBottom: 8 } },
+    MuiTextField: { root: { margin: "8px 0" } },
   },
-  props: { MuiLink: { underline: "none" } },
+  props: {
+    MuiLink: { underline: "none" },
+    MuiTextField: { variant: "outlined" },
+    MuiSelect: {
+      variant: "outlined",
+    },
+  },
 });

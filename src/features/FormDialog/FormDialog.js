@@ -5,6 +5,7 @@ import {
   Button,
   DialogTitle,
   DialogContent,
+  FormLabel,
 } from "@material-ui/core";
 import { Formik, Form } from "formik";
 import FormField from "../FormField/FormField";
@@ -17,8 +18,6 @@ function FormDialog({
 }) {
   return (
     <Dialog {...dialogProps}>
-      <DialogTitle>Crear Producto</DialogTitle>
-
       <Formik
         onSubmit={async (values, meta) => {
           if (onSubmit) {
@@ -32,6 +31,7 @@ function FormDialog({
         {({ values, isSubmitting }) => (
           <Form>
             <DialogContent style={{ display: "flex", flexDirection: "column" }}>
+              <FormLabel>Crear Producto</FormLabel>
               {fields?.map((field) => (
                 <FormField {...field} />
               ))}

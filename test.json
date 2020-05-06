@@ -1,0 +1,1 @@
+{$set:{fields:[{title:"Nombre Completo""},{title:"Edad",type:"number"},{title:"Direccion"},{title:"Cel",type:"number"},{title:"Profesion"},{title:"Ocupacion"},{title:"Talentos"},{title:"Hobbys o Deporte"},{title:"¿Desea consagrar horas de servicio a partir de su profesion, talento u ocupacion?"}]}
