@@ -4,6 +4,7 @@ import FormsPage from "../../pages/InventoryPage/FormsPage";
 import CreatedFormDetail from "../created_form_detail/CreatedFormDetail";
 import TakeSurvey from "../take_survey/TakeSurvey";
 import SurveyResults from "../survey_results/SurveyResults";
+import Detail from "../movements/Detail";
 
 export default [
   {
@@ -22,6 +23,13 @@ export default [
     path: "/surveys",
     component: FormsPage,
     label: "Encuestas",
+  },
+  {
+    path: "/inventory/:name",
+    exact: true,
+    noNavBar: true,
+    component: Detail,
+    label: "Almacenamiento",
   },
   {
     path: "/inventory",

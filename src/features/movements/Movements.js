@@ -8,6 +8,7 @@ import {
   ListItemSecondaryAction,
   List,
   IconButton,
+  Link,
 } from "@material-ui/core";
 import {
   Add,
@@ -21,6 +22,7 @@ import {
 import classes from "./Movements.module.scss";
 import { useMovements, useItems, useDbCollection } from "../../hooks/db";
 import FormDialog from "../FormDialog/FormDialog";
+import { NavLink } from "react-router-dom";
 
 function Movements() {
   const [
@@ -93,9 +95,7 @@ function Movements() {
             <Card className={classes.card}>
               <ListItem className={classes.item}>
                 <ListItemText>
-                  {movement.take_name || (
-                    <span style={{ fontWeight: "bold" }}>Almacen</span>
-                  )}
+                  {<span style={{ fontWeight: "bold" }}>Almacen</span>}
                 </ListItemText>
                 <div style={{ display: "flex", alignItems: "center" }}>
                   {movement.type === "in" ? (
@@ -109,7 +109,16 @@ function Movements() {
                     <ArrowRightAlt style={{ color: "red" }} />
                   )}
                 </div>
-                <ListItemText>{movement.give_name || "Anonimo"}</ListItemText>
+                <ListItemText>
+                  <Link
+                    component={NavLink}
+                    to={
+                      "/inventory/" + (movement.take_name || movement.give_name)
+                    }
+                  >
+                    {movement.take_name || movement.give_name}
+                  </Link>
+                </ListItemText>
                 <ListItemText className={classes.actions}>
                   <IconButton onClick={() => deleteMovement(movement._id)}>
                     <Delete />
